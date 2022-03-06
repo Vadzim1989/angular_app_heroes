@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { CLASSES, RACES } from '../in-memory-data.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -12,6 +13,8 @@ import { HeroService } from '../hero.service';
 })
 export class HeroDetailComponent implements OnInit {
   hero: Hero | undefined;
+  classes: string[] = CLASSES;
+  races: string[] = RACES;
 
   constructor(
     private route: ActivatedRoute,

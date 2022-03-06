@@ -1,10 +1,58 @@
 <h2>My Heroes</h2>
+
+<form class="add-hero-form">
+  <label for="hero-name">Hero name: </label>
+  <input id="hero-name" #heroName required>
+
+  <label for="hero-class">Hero class: </label>
+  <select name="hero-class" 
+          id="hero-class"
+          required
+          #heroClass>
+    <option selected disabled>-- Select class ---</option>
+    <option *ngFor="let class of classes" value="{{class}}">{{ class }}</option>
+  </select>
+
+  <label for="hero-class">Hero race: </label>
+  <select name="hero-race" 
+          id="hero-race"
+          required
+          #heroRace>
+    <option selected disabled>-- Select race ---</option>
+    <option *ngFor="let race of races" value="{{race}}">{{ race }}</option>
+  </select>
+
+  <div class="hero-level-form">
+    <label for="hero-level">Hero level (1 - 100): </label>
+    <input id="hero-level"
+          type="number"
+          placeholder="1-100..."
+          step="1"
+          max="100"
+          min="1"
+          value="1" 
+          required
+          #heroLevel>
+    <span class="valid"></span>
+  </div>
+
+  <button type="button"
+          class="add-class-btn"
+          (click)="add(heroName.value, heroClass.value, heroRace.value, heroLevel.value)"
+          >
+          Add hero
+  </button>
+</form>
+
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> 
-      <span>{{hero.name}} - </span>
-      <span class="hero_class">{{hero.class}}</span>
+      <span>{{hero.name}}</span>
     </a>
+    <button type="button"
+            class="delete"
+            title="delete hero"
+            (click)="delete(hero)">X</button>
   </li>
 </ul>

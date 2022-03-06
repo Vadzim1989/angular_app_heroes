@@ -4,19 +4,33 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Hero } from './hero';
 
 
-const classes = new Map([
-  ['0', 'warrior'],
-  ['1', 'mage'],
-  ['2', 'priest'],
-  ['3', 'hunter'],
-  ['4', 'rogue'],
-  ['5', 'shaman'],
-  ['6', 'druid'],
-  ['7', 'death knight'],
-  ['8', 'warlock'],
-  ['9', 'paladin'],
-  ['10', 'monk']
-])
+export const CLASSES: string[] = [
+  'Warrior',
+  'Mage',
+  'Priest',
+  'Hunter',
+  'Rogue',
+  'Shaman',
+  'Druid',
+  'Death knight',
+  'Warlock',
+  'Paladin',
+  'Monk',
+];
+
+export const RACES: string[] = [
+  'Human',
+  'Orc',
+  'Night Elv',
+  'Blood Elv',
+  'Dwarf',
+  'Troll',
+  'Gnome',
+  'Undead',
+  'Tauren',
+  'Drenei',
+  'Pandaren',
+];
 
 
 @Injectable({
@@ -25,16 +39,16 @@ const classes = new Map([
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const heroes = [
-      { id: 1,  name: 'Dr Nice',   class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 2,  name: 'Narco',     class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 3,  name: 'Bombasto',  class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 4,  name: 'Celeritas', class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 5,  name: 'Magneta',   class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 6,  name: 'RubberMan', class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 7,  name: 'Dynama',    class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 8,  name: 'Dr IQ',     class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 9,  name: 'Magma',     class: classes.get(String(Math.floor(Math.random() * 11))) },
-      { id: 10, name: 'Tornado',   class: classes.get(String(Math.floor(Math.random() * 11))) }
+      { id: 1,  name: 'Dr Nice',   class: 'Warrior',  race: 'Human',      level: 100 },
+      { id: 2,  name: 'Narco',     class: 'Warlock',  race: 'Undead',     level: 95 },
+      { id: 3,  name: 'Bombasto',  class: 'Priest',   race: 'Undead',     level: 90 },
+      { id: 4,  name: 'Celeritas', class: 'Paladin',  race: 'Blood Elv',  level: 90 },
+      { id: 5,  name: 'Magneta',   class: 'Rogue',    race: 'Gnome',      level: 80 },
+      { id: 6,  name: 'RubberMan', class: 'Shaman',   race: 'Drenei',     level: 50 },
+      { id: 7,  name: 'Dynama',    class: 'Driud',    race: 'Tauren',     level: 1 },
+      { id: 8,  name: 'Dr IQ',     class: 'Hunter',   race: 'Dwarf',      level: 20 },
+      { id: 9,  name: 'Magma',     class: 'Monk',     race: 'Pandaren',   level: 25 },
+      { id: 10, name: 'Tornado',   class: 'Death knight', race: 'Night Elv', level: 75 }
     ];
     return {heroes};
   }
@@ -47,6 +61,7 @@ export class InMemoryDataService implements InMemoryDbService {
   genId(heroes: Hero[]): number {
     return heroes.length > 0 ? Math.max(...heroes.map(hero => hero.id)) + 1 : 1;
   }
+
 
   constructor() { }
 }

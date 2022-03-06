@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { CLASSES, RACES } from '../in-memory-data.service';
+import { InMemoryDataService } from '../in-memory-data.service';
 
 @Component({
   selector: 'app-heroes',
@@ -9,9 +11,16 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
+
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  classes: string[] = CLASSES;
+  races: string[] = RACES;
+
+
+  constructor(
+    private heroService: HeroService,
+    private memoryDataService: InMemoryDataService) { }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -20,5 +29,30 @@ export class HeroesComponent implements OnInit {
   getHeroes(): void {
     this.heroService.getHeroes()
     .subscribe(heroes => this.heroes = heroes);
+  }
+
+  add(name: string, cls: string, rac: string, lvl: string) {
+
+    if(!name && Number(lvl) < 0 && Number(lvl) > 100) {
+      return;
+    }
+
+    const newHero: Hero = {
+      id: this.memoryDataService.genId(this.heroes),
+      name,
+      class: cls,
+      race: rac,
+      level: Number(lvl),
+    };
+
+    this.heroService.addHero(newHero)
+    .subscribe(hero => {
+      this.heroes.push(hero);
+    });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero.id).subscribe();
   }
 }
