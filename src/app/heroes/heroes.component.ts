@@ -4,6 +4,7 @@ import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 import { CLASSES, RACES } from '../in-memory-data.service';
 import { InMemoryDataService } from '../in-memory-data.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-heroes',
@@ -20,7 +21,12 @@ export class HeroesComponent implements OnInit {
 
   constructor(
     private heroService: HeroService,
-    private memoryDataService: InMemoryDataService) { }
+    private memoryDataService: InMemoryDataService,
+    private message: MessageService) { }
+
+  private log(msg: string) {
+    this.message.add(`HeroesComponent: ${msg}`)
+  }
 
   ngOnInit(): void {
     this.getHeroes();
@@ -33,7 +39,8 @@ export class HeroesComponent implements OnInit {
 
   add(name: string, cls: string, rac: string, lvl: string) {
 
-    if(!name && Number(lvl) < 0 && Number(lvl) > 100) {
+    if(!name || Number(lvl) < 0 || Number(lvl) > 100) {
+      this.log('Wrong values. You enter empty hero name or level low than 1 or big than 100');
       return;
     }
 
