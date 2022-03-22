@@ -1,50 +1,64 @@
 <h2>My Heroes</h2>
 
-<form class="add-hero-form">
-  <label for="hero-name">Hero name: </label>
-  <input id="hero-name" #heroName required>
+<table mat-table 
+      [dataSource]="heroes"
+      class="mat-elevation-z8">
 
-  <label for="hero-class">Hero class: </label>
-  <select name="hero-class" 
-          id="hero-class"
-          required
-          #heroClass>
-    <option selected disabled>-- Select class ---</option>
-    <option *ngFor="let class of classes" value="{{class}}">{{ class }}</option>
-  </select>
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
 
-  <label for="hero-class">Hero race: </label>
-  <select name="hero-race" 
-          id="hero-race"
-          required
-          #heroRace>
-    <option selected disabled>-- Select race ---</option>
-    <option *ngFor="let race of races" value="{{race}}">{{ race }}</option>
-  </select>
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
 
-  <div class="hero-level-form">
-    <label for="hero-level">Hero level (1 - 100): </label>
-    <input id="hero-level"
-          type="number"
-          placeholder="1-100..."
-          step="1"
-          max="100"
-          min="1"
-          value="1" 
-          required
-          #heroLevel>
-    <span class="valid"></span>
-  </div>
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
 
-  <button type="button"
-          class="add-class-btn"
-          (click)="add(heroName.value, heroClass.value, heroRace.value, heroLevel.value)"
-          >
-          Add hero
-  </button>
-</form>
+  <ng-container matColumnDef="class">
+    <th mat-header-cell *matHeaderCellDef> Class </th>
+    <td mat-cell *matCellDef="let element"> {{element.class}} </td>
+  </ng-container>
 
-<ul class="heroes">
+  <ng-container matColumnDef="race">
+    <th mat-header-cell *matHeaderCellDef> Race </th>
+    <td mat-cell *matCellDef="let element"> {{element.race}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="level">
+    <th mat-header-cell *matHeaderCellDef> Level </th>
+    <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef><a mat-stroked-button
+      routerLink="/new"
+      >ADD HERO</a></th>
+    <td mat-cell *matCellDef="let element">
+      <a mat-stroked-button
+          routerLink="/hero/{{element.id}}"
+          >Update</a>
+      <button 
+          mat-icon-button 
+          color="primary" 
+          aria-label="Example icon button with a delete icon"
+          (click)="delete(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+
+<!-- <ul class="heroes">
   <li *ngFor="let hero of heroes">
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span> 
@@ -55,4 +69,4 @@
             title="delete hero"
             (click)="delete(hero)">X</button>
   </li>
-</ul>
+</ul> -->

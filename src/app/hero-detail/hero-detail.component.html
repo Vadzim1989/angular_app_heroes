@@ -1,25 +1,80 @@
-<div *ngIf="hero">
-    <h2>{{hero.name | uppercase}} Details</h2>
-    <div>
-        <p><span>id: </span>{{hero.id}}</p>
-        <p><span>class: </span>{{hero.class}}</p>
-        <p><span>race: </span>{{hero.race}}</p>
-        <p><span>level: </span>{{hero.level}}</p>
-    </div>
-    <div class="change-info">
-      <label for="hero-name">Hero name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
+<div *ngIf="update; else elseBlock">
+  <div *ngIf="hero">
+      <h2>{{hero.name | uppercase}} Details</h2>
+      <div>
+          <p><span>id: </span>{{hero.id}}</p>
+          <p><span>class: </span>{{hero.class}}</p>
+          <p><span>race: </span>{{hero.race}}</p>
+          <p><span>level: </span>{{hero.level}}</p>
+      </div>
+      <div class="change-info">
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name"/>
 
-      <label for="hero-class">Hero class: </label>
-      <select name="hero-class" id="hero-class" [(ngModel)]="hero.class">
-        <option *ngFor="let class of classes" value="{{ class }}">{{ class }}</option>
-      </select>
+        <label for="hero-class">Hero class: </label>
+        <select name="hero-class" id="hero-class" [(ngModel)]="hero.class">
+          <option *ngFor="let class of classes" value="{{ class }}">{{ class }}</option>
+        </select>
 
-      <label for="hero-race">Hero race: </label>
-      <select name="hero-race" id="hero-race" [(ngModel)]="hero.race">
-        <option *ngFor="let race of races" value="{{ race }}">{{ race }}</option>
-      </select>
-    </div>
-    <button type="button" (click)="save()">save</button>
-    <button type="button" (click)="goBack()">go back</button>
+        <label for="hero-race">Hero race: </label>
+        <select name="hero-race" id="hero-race" [(ngModel)]="hero.race">
+          <option *ngFor="let race of races" value="{{ race }}">{{ race }}</option>
+        </select>
+      </div>
+      <button type="button" (click)="save()">Save</button>
+      <button type="button" (click)="goBack()">Cancel</button>
   </div>
+</div>
+<ng-template #elseBlock>
+  <form class="add-hero-form">
+    <label for="hero-name">Hero name: </label>
+    <input id="hero-name" #heroName required>
+
+    <label for="hero-class">Hero class: </label>
+    <select name="hero-class" 
+            id="hero-class"
+            required
+            #heroClass>
+      <option selected disabled>-- Select class ---</option>
+      <option *ngFor="let class of classes" value="{{class}}">{{ class }}</option>
+    </select>
+
+    <label for="hero-class">Hero race: </label>
+    <select name="hero-race" 
+            id="hero-race"
+            required
+            #heroRace>
+      <option selected disabled>-- Select race ---</option>
+      <option *ngFor="let race of races" value="{{race}}">{{ race }}</option>
+    </select>
+
+    <div class="hero-level-form">
+      <label for="hero-level">Hero level (1 - 100): </label>
+      <input id="hero-level"
+            type="number"
+            placeholder="1-100..."
+            step="1"
+            max="100"
+            min="1"
+            value="1" 
+            required
+            #heroLevel>
+      <span class="valid"></span>
+    </div>
+    
+    <a
+      routerLink="/heroes" 
+      type="button"
+      class="add-class-btn"
+      (click)="add(heroName.value, heroClass.value, heroRace.value, heroLevel.value)"
+      >
+      Add hero
+    </a>
+
+    <a
+      routerLink="/heroes"
+      class="add-class-btn">
+      Cancel
+    </a>
+  </form>
+</ng-template>

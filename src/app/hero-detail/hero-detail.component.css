@@ -28,3 +28,56 @@ label {
     flex-direction: column;
     width: 15%;
   }
+
+  .add-hero-form {
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+  }
+  
+  .add-class-btn {
+    padding: .5rem 1.5rem;
+    font-size: 1rem;
+    margin-top: .5rem;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #e8e8e8;
+    color: #3d3d3d;
+   }
+   
+  .add-class-btn:hover {
+     color: white;
+     background-color: #42545C;
+  }
+   
+  button.delete {
+    position: absolute;
+    left: 210px;
+    top: 5px;
+    background-color: white;
+    color:  #525252;
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 1px 10px 3px 10px;
+  }
+  
+  button.delete:hover {
+    background-color: #525252;
+    color: white;
+  }
+  
+  #hero-level:invalid+span::after {
+    content: '✖';
+    padding-left: 10%;
+    font-weight: bold;
+    color: red;
+  }
+  
+  #hero-level:valid+span::after{
+    content: '✓';
+    padding-left: 10%;
+    font-weight: bold;
+    color: green;
+  }

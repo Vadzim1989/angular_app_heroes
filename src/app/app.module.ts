@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MaterialExampleModule } from './material.module';
 
 
 import { AppComponent } from './app.component';
@@ -14,6 +16,8 @@ import { InMemoryDataService } from './in-memory-data.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeroService } from './hero.service';
 
 @NgModule({
   imports: [
@@ -21,9 +25,12 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatNativeDateModule,
+    MaterialExampleModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
+    BrowserAnimationsModule,
   ],
   declarations: [
     AppComponent,
@@ -33,6 +40,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     MessagesComponent,
     HeroSearchComponent
   ],
+  providers: [ HeroService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

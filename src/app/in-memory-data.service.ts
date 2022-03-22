@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { BehaviorSubject } from 'rxjs';
 
 import { Hero } from './hero';
 
@@ -37,9 +38,11 @@ export const RACES: string[] = [
   providedIn: 'root'
 })
 export class InMemoryDataService implements InMemoryDbService {
+
+
   createDb() {
     const heroes = [
-      { id: 1,  name: 'Dr Nice',   class: 'Warrior',  race: 'Human',      level: 100 },
+      { id: 1,  name: 'Dr Nice',   class: 'Warrior',  race: 'Human',      level: 99 },
       { id: 2,  name: 'Narco',     class: 'Warlock',  race: 'Undead',     level: 95 },
       { id: 3,  name: 'Bombasto',  class: 'Priest',   race: 'Undead',     level: 90 },
       { id: 4,  name: 'Celeritas', class: 'Paladin',  race: 'Blood Elv',  level: 90 },

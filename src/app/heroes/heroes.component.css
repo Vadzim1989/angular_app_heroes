@@ -103,3 +103,12 @@
   font-weight: bold;
   color: green;
 }
+
+table {
+  width: 100%;
+}
+
+td:last-child,
+th:last-child {
+  text-align: right;
+}
